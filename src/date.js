@@ -62,12 +62,11 @@ angular.module('ui.date', [])
 
           // Update the date picker when the model changes
           controller.$render = function () {
-            var date = controller.$modelValue;
+            var date = controller.$viewValue;
             if ( angular.isDefined(date) && date !== null && !angular.isDate(date) ) {
-                if ( angular.isString(controller.$modelValue) ) {
-                    date = uiDateConverter.stringToDate(attrs.uiDateFormat, controller.$modelValue);
-                } else {
-                    throw new Error('ng-Model value must be a Date, or a String object with a date formatter - currently it is a ' + typeof date + ' - use ui-date-format to convert it from a string');
+                date = uiDateConverter.stringToDate(attrs.uiDateFormat, date);
+                if ( date == null ) {
+                    throw new Error('ng-Model value must be a Date, or a String object with a date formatter - currently it is a ' + typeof date + ' and contains ' + date + ' - use ui-date-format to convert it from a string');
                 }
             }
             element.datepicker('setDate', date);

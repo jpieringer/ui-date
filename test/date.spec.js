@@ -76,6 +76,13 @@ describe('uiDate', function() {
         });
       }).toThrow();
     });
+    it('should throw an error if you try to pass in a string when the model is not set to a date string', function() {
+      expect(function() {
+        scope.$apply(function() {
+          scope.x = "not_a_date";
+        });
+      }).toThrow();
+    });
   });
 
   it('should update the input field correctly on a manual update', function() {
